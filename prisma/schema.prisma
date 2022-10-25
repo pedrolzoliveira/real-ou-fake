@@ -9,18 +9,17 @@ datasource db {
 
 model Tweet {
     id String @id @default(uuid())
-    author Author @relation(fields: [authorId], references: [id])
+    author Author @relation(fields: [username], references: [username])
     tweet String
     time DateTime
     source String
     permalink String?
-    authorId String 
+    username String 
 }
 
 model Author {
-    id String @id @default(uuid())
     name String
-    username String
+    username String @id
     image String
     tweets Tweet[]
 }
