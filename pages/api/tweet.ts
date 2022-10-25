@@ -1,26 +1,33 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Tweet } from '../../types/tweet'
+import { client } from '../../prisma/client'
 
-type Data = {
-    tweet: Tweet
-    status: 'real' | 'fake'
-}
-
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
-  res.status(200).json({
-    tweet: {
-        author: {
-            name: 'Pedro',
-            username: 'PedroLzOliveira',
-            image: 'https://pbs.twimg.com/profile_images/1584988234169438209/pBRy4EGz_400x400.jpg',
-        },
-        time: new Date(),
-        tweet: 'carai mo preguiça',
-        source: 'Twitter',
-    },
-    status: 'fake'
-  })
+  switch (req.method) {
+    case "GET": {
+      const tweet = await client.tweet.findFirst({select: {
+        id: true,
+        tweet: true,
+        permalink: true,
+        source: true,
+        time: true,
+        author: true
+      }})
+      res.status(200).json({ tweet })
+    }
+    case "POST": {
+      if (req.body.status) {
+        // Import tweet
+      }
+      return res.status(201).send({})
+    }
+    default: {
+      return res.status(501).json({
+        error: `METHOD ${req.method} not implemented`
+      })
+    }
+  }
 }

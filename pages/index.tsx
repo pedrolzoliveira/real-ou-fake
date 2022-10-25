@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <div className='flex items-center justify-center h-screen'>
       <div className='absolute'>
-        <Image src={FakeStamp}/>
+        <Image alt='fake stamp' src={FakeStamp}/>
       </div>
       <div className='grid grid-cols-2 gap-4 p-4'>
           <TweetCard
