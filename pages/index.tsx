@@ -5,7 +5,7 @@ import { TweetCard } from '../components/tweet-card'
 const Home: NextPage = () => {
   return (
     <div>
-     <TweetCard
+      <TweetCard
       author={{
         name: 'randy',
         username: 'randyfactory',
