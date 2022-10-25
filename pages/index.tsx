@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useState } from 'react'
 import { TweetCard } from '../components/tweet-card'
 import { useTweet } from '../hooks/useTweet'
 
@@ -18,7 +19,6 @@ const Home: NextPage = () => {
         />
         : null
         }
-        
       <button className='bg-green-400 rounded p-4 text-white font-semi-bold text-lg'>Real</button>
       <button className='bg-red-500 rounded p-4 text-white font-semi-bold text-lg'>Fake</button>
       </div>
