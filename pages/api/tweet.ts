@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Tweet } from '../../types/tweet'
 import { client } from '../../prisma/client'
 
 export default async function handler(

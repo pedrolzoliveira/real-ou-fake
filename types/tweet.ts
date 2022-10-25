@@ -1,5 +1,5 @@
 export interface Tweet {
-    author?: {
+    author: {
         name: string
         username: string
         image: string
