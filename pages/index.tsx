@@ -3,6 +3,7 @@ import Image from 'next/image'
 import FakeStamp from '../public/fake-stamp.png'
 import { TweetCard } from '../components/tweet-card'
 
+
 const Home: NextPage = () => {
   return (
     <div className='flex items-center justify-center h-screen'>
