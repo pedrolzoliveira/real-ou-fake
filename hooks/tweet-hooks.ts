@@ -14,7 +14,7 @@ export const useTweet = () => {
                     'real' : 'fake'
                 }
             }            
-        },
+        }
     })
 }
 

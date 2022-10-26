@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   const queryClient = useQueryClient()
 
   const invalidateTweetQuery = () => {
-    queryClient.invalidateQueries(['tweet'])
+    queryClient.refetchQueries(['tweet'])
   }
 
   return (
