@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { client } from '../../prisma/client'
+import { getTweetByStatus } from '../../server-services/twitter'
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,9 +20,9 @@ export default async function handler(
     }
     case "POST": {
       if (req.body.status) {
-        // Import tweet
+        const tweet = getTweetByStatus(req.body.status)
+        return res.status(201).send({ tweet })
       }
-      return res.status(201).send({})
     }
     default: {
       return res.status(501).json({
