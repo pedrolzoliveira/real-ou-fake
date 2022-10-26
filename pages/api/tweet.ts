@@ -9,7 +9,7 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET": {
-      const queryReturn = await client.$queryRaw<Omit<Tweet & { id: string } & { username: string, name: string, image: string }, 'author'>[]>`
+      const queryReturn = await client.$queryRaw<Omit<Tweet & { id: string } & { username: string, name: string, image: string, isVerified?: boolean, isProtected?: boolean }, 'author'>[]>`
       SELECT
         "T"."id",
         "T"."tweet",
@@ -18,7 +18,9 @@ export default async function handler(
         "T"."permalink",
         "A"."username",
         "A"."name",
-        "A"."image"
+        "A"."image",
+        "A"."isVerified",
+        "A"."isProtected" 
       FROM "Tweet" "T"
       JOIN "Author" "A"
       ON ("T"."username" = "A"."username")
@@ -34,7 +36,9 @@ export default async function handler(
         author: {
           name: queryReturn[0].name,
           username: queryReturn[0].username,
-          image: queryReturn[0].image
+          image: queryReturn[0].image,
+          isVerified: queryReturn[0].isVerified,
+          isProtected: queryReturn[0].isProtected
         }
       }
 

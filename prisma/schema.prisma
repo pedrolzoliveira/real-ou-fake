@@ -21,5 +21,7 @@ model Author {
     name String
     username String @id
     image String
+    isProtected Boolean?
+    isVerified Boolean?
     tweets Tweet[]
 }
