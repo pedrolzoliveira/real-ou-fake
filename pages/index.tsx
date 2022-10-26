@@ -23,7 +23,7 @@ const RealOrFake = ({ real } : { real: boolean}) => {
 
 const Home: NextPage = () => {
 
-  const [isRevealed, setIsRevealed] = useState(false)
+  const [revealed, setRevealed] = useState(false)
   const [total, setTotal] = useState(0)
   const [right, setRight] = useState(0)
 
@@ -33,22 +33,31 @@ const Home: NextPage = () => {
 
   const invalidateTweetQuery = () => {
     queryClient.refetchQueries(['tweet'])
-    setIsRevealed(false)
+    setRevealed(false)
     setTotal(v => v + 1)
   }
 
   const handleReveal = () => {
-    setIsRevealed(true)
+    setRevealed(true)
+  }
+
+  const handleOpenTweet = (url: string) => {
+    window.open(url)
   }
 
   return (
     <div className='flex items-center justify-center h-screen'>
       {
-        isRevealed ?
+        revealed ?
         <RealOrFake real={ data?.status === 'real' }/>
         : null
       }
       <div className='grid grid-cols-2 gap-4 p-4'>
+        {
+          revealed && data?.status === 'real' ?
+          <a onClick={e => handleOpenTweet(data.tweet.permalink as string)}>{data.tweet.permalink}</a>
+          : null
+        }
         {
           isLoading ? <p>Carregando...</p> :
             data?.tweet ? 
@@ -58,8 +67,13 @@ const Home: NextPage = () => {
                 />
               : null
         }
-      <button onClick={invalidateTweetQuery} className='bg-green-400 rounded p-4 text-white font-semi-bold text-lg'>Real</button>
+      <button onClick={handleReveal} className='bg-green-400 rounded p-4 text-white font-semi-bold text-lg'>Real</button>
       <button onClick={handleReveal} className='bg-red-500 rounded p-4 text-white font-semi-bold text-lg'>Fake</button>
+      {
+        revealed ?
+        <button onClick={invalidateTweetQuery} className='rounded p-4 text-lg col-span-2'>Próximo</button>
+        : null
+      }
       </div>
     </div>
   )
