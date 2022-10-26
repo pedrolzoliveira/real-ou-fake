@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useQueryClient } from 'react-query'
 import { TweetCard } from '../components/tweet-card'
 import { useTweet } from '../hooks/tweet-hooks'
 
@@ -6,6 +7,12 @@ import { useTweet } from '../hooks/tweet-hooks'
 const Home: NextPage = () => {
 
   const { data } = useTweet()
+
+  const queryClient = useQueryClient()
+
+  const invalidateTweetQuery = () => {
+    queryClient.invalidateQueries(['tweet'])
+  }
 
   return (
     <div className='flex items-center justify-center h-screen'>
@@ -18,7 +25,7 @@ const Home: NextPage = () => {
         />
         : null
         }
-      <button className='bg-green-400 rounded p-4 text-white font-semi-bold text-lg'>Real</button>
+      <button onClick={invalidateTweetQuery} className='bg-green-400 rounded p-4 text-white font-semi-bold text-lg'>Real</button>
       <button className='bg-red-500 rounded p-4 text-white font-semi-bold text-lg'>Fake</button>
       </div>
     </div>

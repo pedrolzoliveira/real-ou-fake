@@ -41,19 +41,27 @@ export default async function handler(
       const prismaTweet = await client.tweet.create({
         data: {
           tweet,
-          username,
           source: source ?? 'Twitter from iPhone',
-          time: new Date(time),
+          time: time ?
+            new Date(time) : new Date(),
           author: {
             connectOrCreate: {
               create: {
-                name,
                 username,
-                image
+                name: name ?? 'any_name',
+                image: image ?? 'any_link'
               },
               where: { username }
             }
           }
+        },
+        select: {
+          id: true,
+          tweet: true,
+          permalink: true,
+          source: true,
+          time: true,
+          author: true 
         } 
       })
 
