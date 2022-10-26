@@ -49,7 +49,8 @@ export default async function handler(
         tweet,
         author,
         source,
-        time
+        time,
+        permalink
       } = req.body
       
       if (!tweet || !author?.username) {
@@ -63,6 +64,7 @@ export default async function handler(
       const prismaTweet = await client.tweet.create({
         data: {
           tweet,
+          permalink,
           source: source ?? 'Twitter from iPhone',
           time: time ?
             new Date(time) : new Date(),
