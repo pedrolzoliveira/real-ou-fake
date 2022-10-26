@@ -37,7 +37,8 @@ const Home: NextPage = () => {
     setTotal(v => v + 1)
   }
 
-  const handleReveal = () => {
+  const handleReveal = (real: boolean) => {
+    if (Boolean(data?.tweet.permalink) === real) setRight(v => v + 1)
     setRevealed(true)
   }
 
@@ -47,6 +48,7 @@ const Home: NextPage = () => {
 
   return (
     <div className='flex items-center justify-center h-screen'>
+      <p>{right}/{total}</p>
       {
         revealed ?
         <RealOrFake real={ data?.status === 'real' }/>
@@ -67,8 +69,8 @@ const Home: NextPage = () => {
                 />
               : null
         }
-      <button onClick={handleReveal} className='bg-green-400 rounded p-4 text-white font-semi-bold text-lg'>Real</button>
-      <button onClick={handleReveal} className='bg-red-500 rounded p-4 text-white font-semi-bold text-lg'>Fake</button>
+      <button onClick={() => handleReveal(true)} className='bg-green-400 rounded p-4 text-white font-semi-bold text-lg'>Real</button>
+      <button onClick={() => handleReveal(false)} className='bg-red-500 rounded p-4 text-white font-semi-bold text-lg'>Fake</button>
       {
         revealed ?
         <button onClick={invalidateTweetQuery} className='rounded p-4 text-lg col-span-2'>Próximo</button>
