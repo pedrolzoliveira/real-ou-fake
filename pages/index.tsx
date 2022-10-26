@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
 import { TweetCard } from '../components/tweet-card'
-import { useTweet } from '../hooks/useTweet'
+import { useTweet } from '../hooks/tweet-hooks'
 
 
 const Home: NextPage = () => {

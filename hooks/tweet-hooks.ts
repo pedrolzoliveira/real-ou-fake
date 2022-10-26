@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { getRandomTweet } from '../client-services/tweets'
 
 export const useTweet = () => {
@@ -17,3 +17,4 @@ export const useTweet = () => {
         },
     })
 }
+
