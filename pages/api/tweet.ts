@@ -23,6 +23,44 @@ export default async function handler(
         const tweet = getTweetByStatus(req.body.status)
         return res.status(201).send({ tweet })
       }
+      const {
+        tweet,
+        author,
+        source,
+        time
+      } = req.body
+      
+      if (!tweet || !author?.username) {
+        return res.status(401).json({
+          error: 'required fields are missing'
+        })
+      }
+
+      const { name, username, image } = author
+      
+      const prismaTweet = await client.tweet.create({
+        data: {
+          tweet,
+          username,
+          source: source ?? 'Twitter from iPhone',
+          time: new Date(time),
+          author: {
+            connectOrCreate: {
+              create: {
+                name,
+                username,
+                image
+              },
+              where: { username }
+            }
+          }
+        } 
+      })
+
+      return res.status(201).json({
+        tweet: prismaTweet
+      })
+
     }
     default: {
       return res.status(501).json({
